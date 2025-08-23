@@ -1,0 +1,44 @@
+import { toDoItem, toDoList } from "./class.js";
+
+const appController = (() => {
+    let lists = [];
+
+    function countList() {
+        return lists.length;
+    }
+
+    function addList(name = "Untitled") {
+        lists.push(new toDoList(name));
+        // console.log(`Add new todo list named "${name}"`);
+        // printLists();
+    }
+
+    function deleteList(index) {
+        lists.splice(index, 1);
+    }
+
+    function addItem(index = 0, title, desc, dueDate, isImportant, isUrgent) {
+        lists[index].addItem(title, desc, dueDate, isImportant, isUrgent);
+        // console.log(`Add new todo item in ${lists[index].name}`);
+        // printLists();
+    }
+
+    function getListsName() {
+        return lists.map(({ name }) => name);
+    }
+
+    function printLists() {
+        for (let index = 0; index < lists.length; index++) {
+            const element = lists[index];
+
+            console.log(`List #${index}: ${element.name}`);
+            element.printList();
+        }
+    }
+
+    addList();
+
+    return { addList, addItem, printLists, getListsName, deleteList };
+})();
+
+export { appController };
