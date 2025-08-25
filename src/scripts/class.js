@@ -12,7 +12,14 @@ class toDoItem {
         this.isDone = false;
     }
 
-    toggleDone() {
+    toggleIsImporant() {
+        this.isImportant = !this.isImportant;
+    }
+
+    toggleIsUrgent() {
+        this.isUrgent = !this.isUrgent;
+    }
+    toggleIsDone() {
         this.isDone = !this.isDone;
     }
 

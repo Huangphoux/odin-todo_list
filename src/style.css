@@ -271,6 +271,60 @@ h6 {
 /* Start here !!!! */
 /*/*/
 
-.article :where(h1, h2, h3, h4, h5) {
-    all: revert;
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+body {
+    padding: 20px;
+}
+
+button {
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.title {
+    font-size: xx-large;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.todo-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+
+    display: grid;
+    grid-template-rows: repeat(auto-fit, 100px);
+    gap: 20px;
+
+    min-height: 600px;
+    border: 2px solid black;
+
+    padding: 20px;
+}
+
+li {
+    border: 2px solid black;
+
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    place-items: center;
+
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.add {
+    width: 50%;
+    height: 50%;
+    place-self: center;
+    grid-template-columns: 1fr;
+
+    font-size: x-large;
+    font-weight: bold;
 }
