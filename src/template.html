@@ -8,31 +8,60 @@
         <link rel="icon" href="https://fav.farm/🔥" />
     </head>
     <body>
-        <div class="title">Todo List !</div>
+        <p>Todo List !</p>
+        <button class="add" >Add new todo</button>
         <div class="todo-list">
             <ul class="lists">
                 <li>
-                    <button type="button">X</button>
+                    <button type="button">Move</button>
+                    <button type="button">Delete</button>
                     <div class="name">Default Project</div>
                 </li>
                 <li>
-                    <button type="button">X</button>
+                    <button type="button">Move</button>
+                    <button type="button">Delete</button>
                     <div class="name">Cool Project</div>
                 </li>
                 <button type="button" class="add">Add new list</button>
             </ul>
             <ul class="list">
                 <li>
-                    <button type="button">X</button>
-                    <div class="name">Untitled</div>
+                    <button type="button">Expand</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Assignment</div>
+                    <div class="dueDate">25/12/2025</div>
+                    <input type="checkbox" name="isDone" id="isDone" />
                 </li>
                 <li>
-                    <button type="button">X</button>
-                    <div class="name">Cool Project</div>
+                    <button type="button">Expand</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Assignment</div>
+                    <div class="dueDate">25/12/2025</div>
+                    <input type="checkbox" name="isDone" id="isDone" />
                 </li>
-                <button type="button" class="add">Add new list</button>
+                <button type="button" class="add">Add new item</button>
             </ul>
-            <ul class="item"></ul>
         </div>
+
+        <dialog closedby="any">
+            <button class="close" formmethod="dialog" autofocus onclick="closeDialog()">×</button>
+            <p>Let's add a book!</p>
+
+            <form>
+                <label for="title">Book's title</label>
+                <input type="text" name="title" id="title" required />
+
+                <label for="author">Author's name</label>
+                <input type="text" name="author" id="author" required />
+
+                <label for="pageNumber">Page count</label>
+                <input type="number" name="pageNumber" id="pageNumber" min="1" required />
+
+                <label for="isRead">Has this book been read yet?</label>
+                <input type="checkbox" name="isRead" id="isRead" />
+
+                <button id="submit" class="submit" type="submit">Submit</button>
+            </form>
+        </dialog>
     </body>
 </html>

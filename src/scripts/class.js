@@ -75,6 +75,11 @@ class toDoList {
     toggleItem(index) {
         this.items[index].toggleDone();
     }
+
+    moveItem(from, to) {
+        let temp = this.items.splice(from, 1)[0];
+        this.items.splice(to, 0, temp);
+    }
 }
 
 export { toDoItem, toDoList };

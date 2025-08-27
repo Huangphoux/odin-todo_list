@@ -1,5 +1,13 @@
 import "./style.css";
-import { appController } from "./scripts/appController.js";
+import { consoleController } from "./scripts/consoleController.js";
 
+let app = consoleController;
 
-let app = appController;
+function addNewBook() {
+    dialog.showModal();
+}
+
+function closeDialog() {
+    dialog.close();
+}
+

@@ -1,6 +1,6 @@
 import { toDoItem, toDoList } from "./class.js";
 
-const appController = (() => {
+const consoleController = (() => {
     let lists = [];
 
     function countList() {
@@ -36,9 +36,15 @@ const appController = (() => {
         }
     }
 
+    function moveList(from, to) {
+        let temp = lists.splice(from, 1)[0];
+        lists.items.splice(to, 0, temp);
+    }
+
+
     addList();
 
     return { addList, addItem, printLists, getListsName, deleteList };
 })();
 
-export { appController };
+export { consoleController };
