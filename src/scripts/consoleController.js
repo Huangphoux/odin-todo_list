@@ -47,6 +47,16 @@ const consoleController = (() => {
 
 
     addList();
+    addList("Homework");
+    addList("Work");
+
+    addItem(0);
+    addItem(1);
+    addItem(1);
+    addItem(2);
+    addItem(2);
+    addItem(2);
+
 
     return { addList, addItem, printLists, getListsName, deleteList, getListItems };
 })();

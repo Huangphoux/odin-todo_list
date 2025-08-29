@@ -12,7 +12,8 @@ const loadController = (() => {
 
         let listsName = consoleController.getListsName();
 
-        for (const name of listsName) {
+        for (let index = 0; index < listsName.length; index++) {
+            const name = listsName[index];
             const list = document.createElement("li");
 
             const moveBtn = document.createElement("button");
@@ -25,13 +26,17 @@ const loadController = (() => {
             const nameDiv = document.createElement("div");
             nameDiv.classList.toggle("name");
             nameDiv.textContent = name;
+            nameDiv.addEventListener("click", () => {
+                loadList(index);
+                // list.classList.toggle("selected");
+            });
             list.appendChild(nameDiv);
 
             lists.appendChild(list);
         }
     }
 
-    function loadList() {
+    function loadList(index = 0) {
         const list = document.querySelector(".list");
         list.textContent = "";
 
@@ -40,7 +45,11 @@ const loadController = (() => {
         addBtn.textContent = "Add new item";
         list.appendChild(addBtn);
 
-        let listItems = consoleController.getListItems(0);
+        const listName = document.createElement("p");
+        listName.textContent = consoleController.getListsName()[index] + "'s todo items";
+        list.appendChild(listName);
+
+        let listItems = consoleController.getListItems(index);
 
         for (const item of listItems) {
             const itemLi = document.createElement("li");
@@ -70,12 +79,6 @@ const loadController = (() => {
             list.appendChild(itemLi);
         }
     }
-
-    // consoleController.addItem();
-    // consoleController.addItem();
-    // consoleController.addItem();
-    // consoleController.addList("New list");
-    // consoleController.addList("New list");
 
     loadList();
     loadLists();

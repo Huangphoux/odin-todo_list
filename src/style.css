@@ -275,12 +275,9 @@ h6 {
 
 body {
     display: grid;
-    grid-template-rows: 1fr 20fr;
-
     place-content: center;
 
     gap: 20px;
-
     padding: 20px;
 }
 
@@ -301,39 +298,44 @@ p {
 .todo-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 100px;
+    gap: 20px;
 }
 
 ul {
     list-style: none;
 
     display: grid;
-    grid-template-rows: repeat(auto-fit, 150px);
     gap: 20px;
 
     border: 2px solid light-dark(black, white);
 
     padding: 20px;
+
+    place-content: start center;
 }
+
 
 li {
     border: 2px solid light-dark(black, white);
 
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
     place-items: center;
 
     font-size: x-large;
     font-weight: bold;
 
     padding: 20px;
+    gap: 20px;
+
 }
 
 
 .name {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
+
+    cursor: pointer;
 }
 
 .lists .name {
@@ -352,7 +354,7 @@ li {
 }
 
 .add {
-    place-self: center;
+    place-self: start center;
 
     font-size: x-large;
     font-weight: bold;
@@ -387,6 +389,10 @@ dialog {
 
     padding: 30px 100px;
 
+    box-shadow: 10px 10px light-dark(black, white);
+}
+
+.selected {
     box-shadow: 10px 10px light-dark(black, white);
 }
 
