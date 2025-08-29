@@ -1,7 +1,11 @@
-import { toDoItem, toDoList } from "./class.js";
+import { toDoList } from "./class.js";
 
 const consoleController = (() => {
     let lists = [];
+
+    function getLists() {
+        return lists;
+    }
 
     function countList() {
         return lists.length;
@@ -11,10 +15,6 @@ const consoleController = (() => {
         lists.push(new toDoList(name));
         // console.log(`Add new todo list named "${name}"`);
         // printLists();
-    }
-
-    function deleteList(index) {
-        lists.splice(index, 1);
     }
 
     function addItem(index = 0, title, desc, dueDate, isImportant, isUrgent) {
@@ -45,6 +45,13 @@ const consoleController = (() => {
         lists[from].items.splice(to, 0, temp);
     }
 
+    function listIndex(targetID) {
+        return lists.map((e) => e.id).indexOf(targetID);
+    }
+
+    function removeList(targetID) {
+        lists.splice(listIndex(targetID), 1);
+    }
 
     addList();
     addList("Homework");
@@ -57,8 +64,7 @@ const consoleController = (() => {
     addItem(2);
     addItem(2);
 
-
-    return { addList, addItem, printLists, getListsName, deleteList, getListItems, moveList};
+    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists };
 })();
 
 export { consoleController };
