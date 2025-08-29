@@ -27,6 +27,10 @@ const consoleController = (() => {
         return lists.map(({ name }) => name);
     }
 
+    function getListItems(index) {
+        return lists[index].items;
+    }
+
     function printLists() {
         for (let index = 0; index < lists.length; index++) {
             const element = lists[index];
@@ -44,7 +48,7 @@ const consoleController = (() => {
 
     addList();
 
-    return { addList, addItem, printLists, getListsName, deleteList };
+    return { addList, addItem, printLists, getListsName, deleteList, getListItems };
 })();
 
 export { consoleController };
