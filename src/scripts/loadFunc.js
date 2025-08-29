@@ -34,15 +34,17 @@ const loadController = (() => {
     function askForName() {
         let name = prompt("How will this new list going to be called?", "Untitled");
 
-        if (!name) {
-            name = "Untitled";
-        }
-
         return name;
     }
 
     function addListBtn() {
-        consoleController.addList(askForName());
+        let name = askForName();
+
+        if (!name) {
+            return;
+        }
+
+        consoleController.addList(name);
         loadLists();
         loadList(consoleController.countList() - 1);
         window.scrollTo(0, document.body.scrollHeight);
