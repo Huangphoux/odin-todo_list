@@ -9,42 +9,9 @@
     </head>
     <body>
         <p>Todo List !</p>
-        <button class="add" >Add new todo</button>
-        <div class="todo-list">
-            <ul class="lists">
-                <li>
-                    <button type="button">Move</button>
-                    <button type="button">Delete</button>
-                    <div class="name">Default Project</div>
-                </li>
-                <li>
-                    <button type="button">Move</button>
-                    <button type="button">Delete</button>
-                    <div class="name">Cool Project</div>
-                </li>
-                <button type="button" class="add">Add new list</button>
-            </ul>
-            <ul class="list">
-                <li>
-                    <button type="button">Expand</button>
-                    <button type="button">Delete</button>
-                    <div class="name">Assignment</div>
-                    <div class="dueDate">25/12/2025</div>
-                    <input type="checkbox" name="isDone" id="isDone" />
-                </li>
-                <li>
-                    <button type="button">Expand</button>
-                    <button type="button">Delete</button>
-                    <div class="name">Assignment</div>
-                    <div class="dueDate">25/12/2025</div>
-                    <input type="checkbox" name="isDone" id="isDone" />
-                </li>
-                <button type="button" class="add">Add new item</button>
-            </ul>
-        </div>
-
+        
         <dialog closedby="any">
-            <button class="close" formmethod="dialog" autofocus onclick="closeDialog()">×</button>
+            <button class="close" formmethod="dialog" autofocus>×</button>
             <p>Let's add a book!</p>
 
             <form>
@@ -63,5 +30,39 @@
                 <button id="submit" class="submit" type="submit">Submit</button>
             </form>
         </dialog>
+        <button class="add">Add new todo</button>
+
+        <div class="todo-list">
+            <ul class="lists">
+                <li>
+                    <button type="button">Move</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Default Project</div>
+                </li>
+                <li>
+                    <button type="button">Move</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Cool Project</div>
+                </li>
+                <button class="add">Add new list</button>
+            </ul>
+            <ul class="list">
+                <li>
+                    <button type="button">Expand</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Assignment</div>
+                    <div class="dueDate">25/12/2025</div>
+                    <input type="checkbox" name="isDone" id="isDone" />
+                </li>
+                <li>
+                    <button type="button">Expand</button>
+                    <button type="button">Delete</button>
+                    <div class="name">Assignment</div>
+                    <div class="dueDate">25/12/2025</div>
+                    <input type="checkbox" name="isDone" id="isDone" />
+                </li>
+                <button class="add">Add new item</button>
+            </ul>
+        </div>
     </body>
 </html>
