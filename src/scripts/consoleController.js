@@ -75,7 +75,7 @@ const consoleController = (() => {
     addItem(2);
     addItem(2);
 
-    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex, renameList };
+    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex, renameList, countList };
 })();
 
 export { consoleController };

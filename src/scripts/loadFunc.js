@@ -44,6 +44,8 @@ const loadController = (() => {
     function addListBtn() {
         consoleController.addList(askForName());
         loadLists();
+        loadList(consoleController.countList() - 1);
+        window.scrollTo(0, document.body.scrollHeight);
     }
 
     function renameListBtn(elmt) {
@@ -116,7 +118,7 @@ const loadController = (() => {
         }
     }
 
-    function loadList(index = 0) {
+    function loadList(index) {
         const list = document.querySelector(".list");
         list.textContent = "";
 
@@ -164,7 +166,7 @@ const loadController = (() => {
         }
     }
 
-    loadList();
+    loadList(0);
     loadLists();
 
     return { loadLists, loadList };
