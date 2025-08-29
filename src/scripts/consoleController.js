@@ -28,6 +28,10 @@ const consoleController = (() => {
     }
 
     function getListItems(index) {
+        if (!lists.length) {
+            return;
+        }
+
         return lists[index].items;
     }
 

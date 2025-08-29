@@ -23,7 +23,7 @@ const loadController = (() => {
 
     function selectList(elmt) {
         let index = consoleController.listIndex(elmt.dataset.id);
-        
+
         if (index < 0) {
             index = 0;
         }
@@ -116,7 +116,7 @@ const loadController = (() => {
         }
     }
 
-    function loadList(index) {
+    function loadList(index = 0) {
         const list = document.querySelector(".list");
         list.textContent = "";
 
@@ -130,6 +130,10 @@ const loadController = (() => {
         list.appendChild(listName);
 
         let listItems = consoleController.getListItems(index);
+
+        if (!listItems) {
+            return;
+        }
 
         for (const item of listItems) {
             const itemLi = document.createElement("li");
@@ -160,7 +164,7 @@ const loadController = (() => {
         }
     }
 
-    loadList(0);
+    loadList();
     loadLists();
 
     return { loadLists, loadList };
