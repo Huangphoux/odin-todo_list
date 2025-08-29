@@ -2,7 +2,7 @@ import { consoleController } from "./consoleController.js";
 
 const loadController = (() => {
     function askPermission() {
-        return confirm("Just asking to check if you want to delete this.");
+        return confirm("Just want to check if you intend to delete this.");
     }
 
     function moveListBtn(elmt) {
@@ -22,7 +22,13 @@ const loadController = (() => {
     }
 
     function selectList(elmt) {
-        loadList(consoleController.listIndex(elmt.dataset.id));
+        let index = consoleController.listIndex(elmt.dataset.id);
+        
+        if (index < 0) {
+            index = 0;
+        }
+
+        loadList(index);
     }
 
     function askForName() {
@@ -110,7 +116,7 @@ const loadController = (() => {
         }
     }
 
-    function loadList(index = 0) {
+    function loadList(index) {
         const list = document.querySelector(".list");
         list.textContent = "";
 
@@ -154,7 +160,7 @@ const loadController = (() => {
         }
     }
 
-    loadList();
+    loadList(0);
     loadLists();
 
     return { loadLists, loadList };

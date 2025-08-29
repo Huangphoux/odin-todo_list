@@ -60,10 +60,6 @@ const consoleController = (() => {
         lists[index].name = newName;
     }
 
-    function countItem(targetID) {
-        
-    }
-
     addList();
     addList("Homework");
     addList("Work");
