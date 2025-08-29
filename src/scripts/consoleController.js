@@ -42,7 +42,7 @@ const consoleController = (() => {
 
     function moveList(from, to) {
         let temp = lists.splice(from, 1)[0];
-        lists.items.splice(to, 0, temp);
+        lists[from].items.splice(to, 0, temp);
     }
 
 
@@ -58,7 +58,7 @@ const consoleController = (() => {
     addItem(2);
 
 
-    return { addList, addItem, printLists, getListsName, deleteList, getListItems };
+    return { addList, addItem, printLists, getListsName, deleteList, getListItems, moveList};
 })();
 
 export { consoleController };

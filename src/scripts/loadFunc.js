@@ -15,9 +15,15 @@ const loadController = (() => {
         for (let index = 0; index < listsName.length; index++) {
             const name = listsName[index];
             const list = document.createElement("li");
+            list.setAttribute("data-index", index);
 
             const moveBtn = document.createElement("button");
             moveBtn.textContent = "Move";
+            moveBtn.addEventListener("click", () => {
+                let moveTo = prompt("Enter number to move to:");
+                consoleController.moveList(list.dataset.index, +moveTo);
+                loadLists();
+            });
             list.appendChild(moveBtn);
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
