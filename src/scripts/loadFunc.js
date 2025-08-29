@@ -5,6 +5,26 @@ const loadController = (() => {
         return confirm("Just asking to check if you want to delete this.");
     }
 
+    function moveListBtn(elmt) {
+        let toPosition = prompt("You want to move this to which position?");
+        let fromPosition = consoleController.listIndex(elmt.dataset.id);
+        consoleController.moveList(fromPosition, +toPosition - 1);
+        loadLists();
+    }
+
+    function deleteListBtn(elmt) {
+        // dataset is in DOM element
+        // not in array's item
+        if (askPermission()) {
+            consoleController.removeList(elmt.dataset.id);
+            loadLists();
+        }
+    }
+
+    function selectList(elmt) {
+        loadList(consoleController.listIndex(elmt.dataset.id));
+    }
+
     function loadLists() {
         const listsElmt = document.querySelector(".lists");
         listsElmt.textContent = "";
@@ -20,34 +40,27 @@ const loadController = (() => {
             const listElmt = document.createElement("li");
             listElmt.setAttribute("data-id", list.id);
 
+            listElmt.addEventListener("click", () => {
+                selectList(listElmt);
+            });
+
             const moveBtn = document.createElement("button");
             moveBtn.textContent = "Move";
             moveBtn.addEventListener("click", () => {
-                let moveTo = prompt("Enter number to move to:");
-                consoleController.moveList(listElmt.dataset.id, +moveTo);
-                loadLists();
+                moveListBtn(listElmt);
             });
             listElmt.appendChild(moveBtn);
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
             deleteBtn.addEventListener("click", () => {
-                // dataset is in DOM element
-                // not in array's item
-                if (askPermission()) {
-                    consoleController.removeList(listElmt.dataset.id);
-                    loadLists();
-                }
+                deleteListBtn(listElmt);
             });
             listElmt.appendChild(deleteBtn);
 
             const nameDiv = document.createElement("div");
             nameDiv.classList.toggle("name");
             nameDiv.textContent = list.name;
-            nameDiv.addEventListener("click", () => {
-                loadList(index);
-                // list.classList.toggle("selected");
-            });
             listElmt.appendChild(nameDiv);
 
             listsElmt.appendChild(listElmt);

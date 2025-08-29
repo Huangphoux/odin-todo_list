@@ -41,8 +41,10 @@ const consoleController = (() => {
     }
 
     function moveList(from, to) {
-        let temp = lists.splice(from, 1)[0];
-        lists[from].items.splice(to, 0, temp);
+        // splice is in-place
+        var element = lists[from];
+        lists.splice(from, 1);
+        lists.splice(to, 0, element);
     }
 
     function listIndex(targetID) {
@@ -64,7 +66,7 @@ const consoleController = (() => {
     addItem(2);
     addItem(2);
 
-    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists };
+    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex };
 })();
 
 export { consoleController };
