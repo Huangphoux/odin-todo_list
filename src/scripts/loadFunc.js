@@ -25,6 +25,33 @@ const loadController = (() => {
         loadList(consoleController.listIndex(elmt.dataset.id));
     }
 
+    function askForName() {
+        let name = prompt("How will this new list going to be called?", "Untitled");
+
+        if (!name) {
+            name = "Untitled";
+        }
+
+        return name;
+    }
+
+    function addListBtn() {
+        consoleController.addList(askForName());
+        loadLists();
+    }
+
+    function renameListBtn(elmt) {
+        consoleController.renameList(elmt.dataset.id, askForName());
+        loadLists();
+    }
+
+    function formatCountItem(number) {
+        if (number > 1) {
+            return number + " items";
+        }
+        return number + " item";
+    }
+
     function loadLists() {
         const listsElmt = document.querySelector(".lists");
         listsElmt.textContent = "";
@@ -32,6 +59,9 @@ const loadController = (() => {
         const addBtn = document.createElement("button");
         addBtn.classList.toggle("add");
         addBtn.textContent = "Add new list";
+        addBtn.addEventListener("click", () => {
+            addListBtn();
+        });
         listsElmt.appendChild(addBtn);
 
         let listsArray = consoleController.getLists();
@@ -49,19 +79,32 @@ const loadController = (() => {
             moveBtn.addEventListener("click", () => {
                 moveListBtn(listElmt);
             });
-            listElmt.appendChild(moveBtn);
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
             deleteBtn.addEventListener("click", () => {
                 deleteListBtn(listElmt);
             });
-            listElmt.appendChild(deleteBtn);
+
+            const renameBtn = document.createElement("button");
+            renameBtn.textContent = "Rename";
+            renameBtn.addEventListener("click", () => {
+                renameListBtn(listElmt);
+            });
 
             const nameDiv = document.createElement("div");
             nameDiv.classList.toggle("name");
             nameDiv.textContent = list.name;
+
+            const countDiv = document.createElement("div");
+            countDiv.classList.toggle("count");
+            countDiv.textContent = formatCountItem(list.countItem());
+
+            listElmt.appendChild(moveBtn);
+            listElmt.appendChild(renameBtn);
+            listElmt.appendChild(deleteBtn);
             listElmt.appendChild(nameDiv);
+            listElmt.appendChild(countDiv);
 
             listsElmt.appendChild(listElmt);
         }

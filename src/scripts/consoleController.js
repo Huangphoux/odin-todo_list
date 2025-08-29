@@ -55,6 +55,15 @@ const consoleController = (() => {
         lists.splice(listIndex(targetID), 1);
     }
 
+    function renameList(targetID, newName) {
+        let index = listIndex(targetID);
+        lists[index].name = newName;
+    }
+
+    function countItem(targetID) {
+        
+    }
+
     addList();
     addList("Homework");
     addList("Work");
@@ -66,7 +75,7 @@ const consoleController = (() => {
     addItem(2);
     addItem(2);
 
-    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex };
+    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex, renameList };
 })();
 
 export { consoleController };

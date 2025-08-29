@@ -335,12 +335,18 @@ li {
 .name {
     grid-column: 2 / 3;
     grid-row: 1 / 2;
-
 }
 
 .lists .name {
     grid-column: 2 / 4;
     grid-row: 1 / 3;
+
+    font-size: xx-large;
+}
+
+.count {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
 }
 
 .dueDate {
