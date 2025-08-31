@@ -84,6 +84,15 @@ const consoleController = (() => {
         lists[listIndex].deleteItem(itemIndex);
     }
 
+    function toggleItem(listID, itemID) {
+        const listIndex = getListIndex(listID);
+        const itemIndex = getItemIndex(listID, itemID);
+
+        lists[listIndex].toggleItem(itemIndex);
+
+        return lists[listIndex].items[itemIndex].isDone;
+    }
+
     addList();
     addList("Homework");
     addList("Work");
@@ -108,6 +117,7 @@ const consoleController = (() => {
         renameList,
         countList,
         removeItem,
+        toggleItem,
     };
 })();
 

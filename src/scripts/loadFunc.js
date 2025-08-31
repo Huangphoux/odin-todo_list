@@ -39,9 +39,6 @@ const loadController = (() => {
         consoleController.addList(askForName());
         loadLists();
         loadList(consoleController.countList() - 1);
-
-        // scroll to bottom
-        window.scrollTo(0, document.body.scrollHeight);
     }
 
     function renameListBtn(elmt) {
@@ -117,11 +114,19 @@ const loadController = (() => {
     function deleteItemBtn(listElmt, itemElmt) {
         // dataset is in DOM element
         // not in array's item
-        if (askPermission()) {
-            consoleController.removeItem(listElmt.dataset.id, itemElmt.dataset.id);
-            loadLists();
-            loadList(consoleController.getListIndex(listElmt.dataset.id));
+        if (!askPermission()) {
+            return;
         }
+
+        consoleController.removeItem(listElmt.dataset.id, itemElmt.dataset.id);
+        loadLists();
+        loadList(consoleController.getListIndex(listElmt.dataset.id));
+    }
+
+    function toggleItemBtn(listElmt, itemElmt, isChecked) {
+        consoleController.toggleItem(listElmt.dataset.id, itemElmt.dataset.id);
+        loadLists();
+        loadList(consoleController.getListIndex(listElmt.dataset.id));
     }
 
     function loadList(index) {
@@ -164,11 +169,15 @@ const loadController = (() => {
 
             const dueDateDiv = document.createElement("div");
             dueDateDiv.classList.toggle("dueDate");
-            dueDateDiv.textContent = `${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
+            dueDateDiv.textContent = `Due: ${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
 
             const checkBox = document.createElement("input");
             checkBox.setAttribute("type", "checkbox");
+            checkBox.addEventListener("change", () => {
+                checkBox.checked = toggleItemBtn(listName, itemLi);
+            });
             checkBox.id = "isDone";
+            checkBox.checked = item.isDone;
 
             itemLi.appendChild(expandBtn);
             itemLi.appendChild(deleteBtn);

@@ -331,6 +331,10 @@ li {
     cursor: pointer;
 }
 
+.list li {
+    cursor: initial;
+}
+
 
 .name {
     grid-column: 2 / 3;
