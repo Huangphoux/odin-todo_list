@@ -60,7 +60,7 @@ const consoleController = (() => {
     }
 
     function fixBlankName(name) {
-        if (!name.length) {
+        if (!name) {
             return "Unnamed";
         }
 

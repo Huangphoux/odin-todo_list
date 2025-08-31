@@ -123,7 +123,7 @@ const loadController = (() => {
         loadList(consoleController.getListIndex(listElmt.dataset.id));
     }
 
-    function toggleItemBtn(listElmt, itemElmt, isChecked) {
+    function toggleItemBtn(listElmt, itemElmt) {
         consoleController.toggleItem(listElmt.dataset.id, itemElmt.dataset.id);
         loadLists();
         loadList(consoleController.getListIndex(listElmt.dataset.id));
@@ -174,7 +174,7 @@ const loadController = (() => {
             const checkBox = document.createElement("input");
             checkBox.setAttribute("type", "checkbox");
             checkBox.addEventListener("change", () => {
-                checkBox.checked = toggleItemBtn(listName, itemLi);
+                toggleItemBtn(listName, itemLi);
             });
             checkBox.id = "isDone";
             checkBox.checked = item.isDone;
