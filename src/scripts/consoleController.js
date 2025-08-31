@@ -12,7 +12,7 @@ const consoleController = (() => {
     }
 
     function addList(name = "Untitled") {
-        lists.push(new toDoList(name));
+        lists.push(new toDoList(fixBlankName(name)));
         // console.log(`Add new todo list named "${name}"`);
         // printLists();
     }
@@ -51,17 +51,37 @@ const consoleController = (() => {
         lists.splice(to, 0, element);
     }
 
-    function listIndex(targetID) {
+    function getListIndex(targetID) {
         return lists.map((e) => e.id).indexOf(targetID);
     }
 
     function removeList(targetID) {
-        lists.splice(listIndex(targetID), 1);
+        lists.splice(getListIndex(targetID), 1);
+    }
+
+    function fixBlankName(name) {
+        if (!name.length) {
+            return "Unnamed";
+        }
+
+        return name;
+    }
+
+    function getItemIndex(listID, itemID) {
+        const listIndex = getListIndex(listID);
+        return lists[listIndex].items.map((e) => e.id).indexOf(itemID);
     }
 
     function renameList(targetID, newName) {
-        let index = listIndex(targetID);
-        lists[index].name = newName;
+        let index = getListIndex(targetID);
+        lists[index].name = fixBlankName(newName);
+    }
+
+    function removeItem(listID, itemID) {
+        const listIndex = getListIndex(listID);
+        const itemIndex = getItemIndex(listID, itemID);
+
+        lists[listIndex].deleteItem(itemIndex);
     }
 
     addList();
@@ -75,7 +95,20 @@ const consoleController = (() => {
     addItem(2);
     addItem(2);
 
-    return { addList, addItem, printLists, getListsName, removeList, getListItems, moveList, getLists, listIndex, renameList, countList };
+    return {
+        addList,
+        addItem,
+        printLists,
+        getListsName,
+        removeList,
+        getListItems,
+        moveList,
+        getLists,
+        getListIndex,
+        renameList,
+        countList,
+        removeItem,
+    };
 })();
 
 export { consoleController };

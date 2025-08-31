@@ -7,7 +7,7 @@ const loadController = (() => {
 
     function moveListBtn(elmt) {
         let toPosition = prompt("You want to move this to which position?");
-        let fromPosition = consoleController.listIndex(elmt.dataset.id);
+        let fromPosition = consoleController.getListIndex(elmt.dataset.id);
         consoleController.moveList(fromPosition, +toPosition - 1);
         loadLists();
     }
@@ -22,7 +22,7 @@ const loadController = (() => {
     }
 
     function selectList(elmt) {
-        let index = consoleController.listIndex(elmt.dataset.id);
+        let index = consoleController.getListIndex(elmt.dataset.id);
 
         if (index < 0) {
             index = 0;
@@ -32,21 +32,15 @@ const loadController = (() => {
     }
 
     function askForName() {
-        let name = prompt("How will this new list going to be called?", "Untitled");
-
-        return name;
+        return prompt("How will this new list going to be called?", "Untitled");
     }
 
     function addListBtn() {
-        let name = askForName();
-
-        if (!name) {
-            return;
-        }
-
-        consoleController.addList(name);
+        consoleController.addList(askForName());
         loadLists();
         loadList(consoleController.countList() - 1);
+
+        // scroll to bottom
         window.scrollTo(0, document.body.scrollHeight);
     }
 
@@ -120,6 +114,16 @@ const loadController = (() => {
         }
     }
 
+    function deleteItemBtn(listElmt, itemElmt) {
+        // dataset is in DOM element
+        // not in array's item
+        if (askPermission()) {
+            consoleController.removeItem(listElmt.dataset.id, itemElmt.dataset.id);
+            loadLists();
+            loadList(consoleController.getListIndex(listElmt.dataset.id));
+        }
+    }
+
     function loadList(index) {
         const list = document.querySelector(".list");
         list.textContent = "";
@@ -130,7 +134,9 @@ const loadController = (() => {
         list.appendChild(addBtn);
 
         const listName = document.createElement("p");
-        listName.textContent = consoleController.getListsName()[index] + "'s todo items";
+        const listObj = consoleController.getLists()[index];
+        listName.textContent = listObj.name + "'s todo items";
+        listName.setAttribute("data-id", listObj.id);
         list.appendChild(listName);
 
         let listItems = consoleController.getListItems(index);
@@ -141,27 +147,33 @@ const loadController = (() => {
 
         for (const item of listItems) {
             const itemLi = document.createElement("li");
+            itemLi.setAttribute("data-id", item.id);
 
             const expandBtn = document.createElement("button");
             expandBtn.textContent = "Expand";
-            itemLi.appendChild(expandBtn);
+
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
-            itemLi.appendChild(deleteBtn);
+            deleteBtn.addEventListener("click", () => {
+                deleteItemBtn(listName, itemLi);
+            });
 
             const nameDiv = document.createElement("div");
             nameDiv.classList.toggle("name");
             nameDiv.textContent = item.title;
-            itemLi.appendChild(nameDiv);
 
             const dueDateDiv = document.createElement("div");
             dueDateDiv.classList.toggle("dueDate");
             dueDateDiv.textContent = `${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
-            itemLi.appendChild(dueDateDiv);
 
             const checkBox = document.createElement("input");
             checkBox.setAttribute("type", "checkbox");
             checkBox.id = "isDone";
+
+            itemLi.appendChild(expandBtn);
+            itemLi.appendChild(deleteBtn);
+            itemLi.appendChild(nameDiv);
+            itemLi.appendChild(dueDateDiv);
             itemLi.appendChild(checkBox);
 
             list.appendChild(itemLi);
