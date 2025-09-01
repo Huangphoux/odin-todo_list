@@ -28,7 +28,19 @@ class toDoItem {
     }
 
     get priority() {
-        return `${this.booleanToString(this.isImportant)}important,${this.booleanToString(this.isUrgent)}urgent`;
+        let temp = [];
+
+        if (this.isUrgent) {
+            temp.push("urgent");
+        }
+        if (this.isImportant) {
+            temp.push("important");
+        }
+        if (!temp.length) {
+            temp.push("delete this!");
+        }
+
+        return temp.join(" ");
     }
 
     get info() {
