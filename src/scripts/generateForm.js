@@ -15,6 +15,7 @@ const generateFormController = (() => {
         input.type = "text";
         input.id = "title";
         input.required = true;
+        input.value = "Something idk";
 
         elmt.appendChild(label);
         elmt.appendChild(input);
@@ -44,6 +45,7 @@ const generateFormController = (() => {
         input.name = "dueDate";
         input.type = "date";
         input.id = "dueDate";
+        input.value = "2025-12-25";
         input.required = true;
 
         elmt.appendChild(label);
@@ -78,19 +80,11 @@ const generateFormController = (() => {
         elmt.appendChild(input);
     }
 
-    const submitBtn = document.createElement("button");
-    submitBtn.classList.toggle("submit");
-    submitBtn.type = "submit";
-    submitBtn.id = "submit";
-    submitBtn.textContent = "Submit";
-
     generateTitle(formElmt);
     generateDesc(formElmt);
     generateDueDate(formElmt);
     generateIsImportant(formElmt);
     generateIsUrgent(formElmt);
-
-    formElmt.appendChild(submitBtn);
 
     return { formElmt };
 })();

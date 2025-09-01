@@ -116,6 +116,8 @@ const loadController = (() => {
 
             listsElmt.appendChild(listElmt);
         }
+
+        consoleController.printLists();
     }
 
     function deleteItemBtn(listElmt, itemElmt) {
@@ -144,14 +146,13 @@ const loadController = (() => {
 
     function addItemBtn(listID) {
         const dialogElmt = document.querySelector("dialog");
-
         generateDialog();
-
+        
         const formElmt = document.createElement("form");
-        formElmt.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            let formObj = Object.fromEntries(new FormData(form));
+        const submitBtn = document.querySelector(".submit");
+        
+        submitBtn.addEventListener("click", () => {
+            let formObj = Object.fromEntries(new FormData(formElmt));
 
             let listIndex = consoleController.getListIndex(listID);
 
@@ -171,7 +172,6 @@ const loadController = (() => {
             loadLists();
             loadList(listIndex);
         });
-
         dialogElmt.showModal();
     }
 
@@ -255,7 +255,6 @@ const loadController = (() => {
     function generateDialog() {
         const dialogElmt = document.querySelector("dialog");
         dialogElmt.textContent = "";
-        // dialogElmt.setAttribute("data-id", itemID);
 
         const closeBtn = document.createElement("button");
         closeBtn.classList.toggle("close");
@@ -271,9 +270,16 @@ const loadController = (() => {
 
         const formElmt = generateFormController.formElmt;
 
+        const submitBtn = document.createElement("button");
+        submitBtn.classList.toggle("submit");
+        // submitBtn.type = "submit";
+        // submitBtn.id = "submit";
+        submitBtn.textContent = "Submit";
+
         dialogElmt.appendChild(closeBtn);
         dialogElmt.appendChild(addText);
         dialogElmt.appendChild(formElmt);
+        dialogElmt.appendChild(submitBtn);
     }
 
     loadList(0);
