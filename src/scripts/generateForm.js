@@ -1,5 +1,9 @@
-const generateDialogController = (() => {
+import { consoleController } from "./consoleController.js";
+import { loadController } from "./loadFunc.js";
+
+const generateFormController = (() => {
     const formElmt = document.createElement("form");
+    const dialogElmt = document.querySelector("dialog");
 
     function generateTitle(elmt) {
         const label = document.createElement("label");
@@ -74,13 +78,21 @@ const generateDialogController = (() => {
         elmt.appendChild(input);
     }
 
+    const submitBtn = document.createElement("button");
+    submitBtn.classList.toggle("submit");
+    submitBtn.type = "submit";
+    submitBtn.id = "submit";
+    submitBtn.textContent = "Submit";
+
     generateTitle(formElmt);
     generateDesc(formElmt);
     generateDueDate(formElmt);
     generateIsImportant(formElmt);
     generateIsUrgent(formElmt);
 
+    formElmt.appendChild(submitBtn);
+
     return { formElmt };
 })();
 
-export { generateDialogController };
+export { generateFormController };

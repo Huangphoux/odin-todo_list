@@ -1,5 +1,5 @@
 import { consoleController } from "./consoleController.js";
-import { generateDialog, generateDialogController } from "./generateDialog.js";
+import { generateFormController } from "./generateForm.js";
 
 const loadController = (() => {
     function askPermission() {
@@ -136,6 +136,45 @@ const loadController = (() => {
         loadList(consoleController.getListIndex(listElmt.dataset.id));
     }
 
+    function expandItemBtn(listElmt, itemElmt) {
+        const dialogElmt = document.querySelector("dialog");
+        generateDialog(listElmt.dataset.id, itemElmt.dataset.id);
+        dialogElmt.showModal();
+    }
+
+    function addItemBtn(listID) {
+        const dialogElmt = document.querySelector("dialog");
+
+        generateDialog();
+
+        const formElmt = document.createElement("form");
+        formElmt.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            let formObj = Object.fromEntries(new FormData(form));
+
+            let listIndex = consoleController.getListIndex(listID);
+
+            consoleController.addItem(
+                listIndex,
+                undefined,
+                formObj.title,
+                formObj.desc,
+                formObj.dueDate,
+                formObj.isImportant,
+                formObj.isUrgent
+            );
+
+            formElmt.reset();
+            dialogElmt.close();
+
+            loadLists();
+            loadList(listIndex);
+        });
+
+        dialogElmt.showModal();
+    }
+
     function loadList(index) {
         const list = document.querySelector(".list");
         list.textContent = "";
@@ -143,6 +182,9 @@ const loadController = (() => {
         const addBtn = document.createElement("button");
         addBtn.classList.toggle("add");
         addBtn.textContent = "Add new item";
+        addBtn.addEventListener("click", () => {
+            addItemBtn(listName.dataset.id);
+        });
         list.appendChild(addBtn);
 
         const listName = document.createElement("p");
@@ -163,6 +205,9 @@ const loadController = (() => {
 
             const expandBtn = document.createElement("button");
             expandBtn.textContent = "Expand";
+            expandBtn.addEventListener("click", () => {
+                expandItemBtn(listName, itemLi);
+            });
 
             const deleteBtn = document.createElement("button");
             deleteBtn.textContent = "Delete";
@@ -210,26 +255,25 @@ const loadController = (() => {
     function generateDialog() {
         const dialogElmt = document.querySelector("dialog");
         dialogElmt.textContent = "";
+        // dialogElmt.setAttribute("data-id", itemID);
 
         const closeBtn = document.createElement("button");
         closeBtn.classList.toggle("close");
         closeBtn.formmethod = "dialog";
         closeBtn.textContent = "X";
+        closeBtn.addEventListener("click", () => {
+            const dialogElmt = document.querySelector("dialog");
+            dialogElmt.close();
+        });
 
         const addText = document.createElement("p");
         addText.textContent = "Add new todo item";
 
-        const formElmt = generateDialogController.formElmt;
-
-        const submitBtn = document.createElement("button");
-        submitBtn.classList.toggle("submit");
-        submitBtn.type = "submit";
-        submitBtn.textContent = "Submit";
+        const formElmt = generateFormController.formElmt;
 
         dialogElmt.appendChild(closeBtn);
         dialogElmt.appendChild(addText);
         dialogElmt.appendChild(formElmt);
-        dialogElmt.appendChild(submitBtn);
     }
 
     loadList(0);

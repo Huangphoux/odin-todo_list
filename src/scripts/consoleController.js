@@ -17,10 +17,8 @@ const consoleController = (() => {
         // printLists();
     }
 
-    function addItem(index = 0, id, title, desc, dueDate, isImportant, isUrgent) {
-        const items = getListItems(index);
-        const itemsID = items.map(({ id }) => id);
-        const itemIndex = itemsID.indexOf(id);
+    function addItem(index = 0, id = "", title, desc, dueDate, isImportant, isUrgent) {
+        const itemIndex = getItemIndex(lists[index].id, id);
 
         if (itemIndex !== -1) {
             lists[index].items[itemIndex].setEverything(title, desc, dueDate, isImportant, isUrgent);
