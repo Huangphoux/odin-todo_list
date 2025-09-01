@@ -97,9 +97,9 @@ const consoleController = (() => {
     addList("Homework");
     addList("Work");
 
-    addItem(0);
-    addItem(1);
-    addItem(1);
+    addItem(0, "something", "no", "1905-09-28", true, true);
+    addItem(1, "something different", "idk", "1984-06-28", false, true);
+    addItem(1, "something different", "idk", "1984-06-28", true, false);
     addItem(2);
     addItem(2);
     addItem(2);

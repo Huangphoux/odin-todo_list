@@ -167,6 +167,16 @@ const loadController = (() => {
             nameDiv.classList.toggle("name");
             nameDiv.textContent = item.title;
 
+            const priorityDiv = document.createElement("div");
+            priorityDiv.classList.toggle("priority");
+            priorityDiv.textContent = item.priority;
+            if (item.isImportant) {
+                priorityDiv.classList.toggle("important");
+            }
+            if (item.isUrgent) {
+                priorityDiv.classList.toggle("urgent");
+            }
+
             const dueDateDiv = document.createElement("div");
             dueDateDiv.classList.toggle("dueDate");
             dueDateDiv.textContent = `Due: ${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
@@ -182,6 +192,7 @@ const loadController = (() => {
             itemLi.appendChild(expandBtn);
             itemLi.appendChild(deleteBtn);
             itemLi.appendChild(nameDiv);
+            itemLi.appendChild(priorityDiv);
             itemLi.appendChild(dueDateDiv);
             itemLi.appendChild(checkBox);
 

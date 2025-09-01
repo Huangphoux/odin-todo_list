@@ -28,7 +28,7 @@ class toDoItem {
     }
 
     get priority() {
-        return `${this.booleanToString(this.isImportant)}important, ${this.booleanToString(this.isUrgent)}urgent`;
+        return `${this.booleanToString(this.isImportant)}important,${this.booleanToString(this.isUrgent)}urgent`;
     }
 
     get info() {
