@@ -50,6 +50,15 @@ class toDoItem {
     get readableDueDate() {
         return `${this.dueDate.getFullYear()}/${this.dueDate.getMonth() + 1}/${this.dueDate.getDate()}`;
     }
+
+    setEverything(title = "untitled", desc = "", dueDate = new Date(), isImportant = false, isUrgent = false) {
+        this.title = title;
+        this.desc = desc;
+        this.dueDate = new Date(dueDate);
+
+        this.isImportant = isImportant;
+        this.isUrgent = isUrgent;
+    }
 }
 
 class toDoList {

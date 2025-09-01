@@ -17,10 +17,16 @@ const consoleController = (() => {
         // printLists();
     }
 
-    function addItem(index = 0, title, desc, dueDate, isImportant, isUrgent) {
-        lists[index].addItem(title, desc, dueDate, isImportant, isUrgent);
-        // console.log(`Add new todo item in ${lists[index].name}`);
-        // printLists();
+    function addItem(index = 0, id, title, desc, dueDate, isImportant, isUrgent) {
+        const items = getListItems(index);
+        const itemsID = items.map(({ id }) => id);
+        const itemIndex = itemsID.indexOf(id);
+
+        if (itemIndex !== -1) {
+            lists[index].items[itemIndex].setEverything(title, desc, dueDate, isImportant, isUrgent);
+        } else {
+            lists[index].addItem(title, desc, dueDate, isImportant, isUrgent);
+        }
     }
 
     function getListsName() {

@@ -36,7 +36,13 @@ const loadController = (() => {
     }
 
     function addListBtn() {
-        consoleController.addList(askForName());
+        let name = askForName();
+
+        if (!name) {
+            return;
+        }
+
+        consoleController.addList(name);
         loadLists();
         loadList(consoleController.countList() - 1);
     }
