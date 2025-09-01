@@ -86,6 +86,37 @@ const generateFormController = (() => {
     generateIsImportant(formElmt);
     generateIsUrgent(formElmt);
 
+    const submitBtn = document.createElement("button");
+    submitBtn.classList.toggle("submit");
+    submitBtn.type = "submit";
+    submitBtn.id = "submit";
+    submitBtn.textContent = "Submit";
+
+    formElmt.appendChild(submitBtn);
+
+    formElmt.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        let formObj = Object.fromEntries(new FormData(formElmt));
+
+        let listIndex = consoleController.getListIndex(formElmt.dataset.id);
+
+        consoleController.addItem(
+            listIndex,
+            undefined,
+            formObj.title,
+            formObj.desc,
+            formObj.dueDate,
+            formObj.isImportant,
+            formObj.isUrgent
+        );
+
+        dialogElmt.close();
+
+        loadController.loadLists();
+        loadController.loadList(listIndex);
+    });
+
     return { formElmt };
 })();
 

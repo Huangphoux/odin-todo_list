@@ -117,7 +117,7 @@ const loadController = (() => {
             listsElmt.appendChild(listElmt);
         }
 
-        consoleController.printLists();
+        // consoleController.printLists();
     }
 
     function deleteItemBtn(listElmt, itemElmt) {
@@ -146,32 +146,9 @@ const loadController = (() => {
 
     function addItemBtn(listID) {
         const dialogElmt = document.querySelector("dialog");
-        generateDialog();
-        
-        const formElmt = document.createElement("form");
-        const submitBtn = document.querySelector(".submit");
-        
-        submitBtn.addEventListener("click", () => {
-            let formObj = Object.fromEntries(new FormData(formElmt));
 
-            let listIndex = consoleController.getListIndex(listID);
+        generateDialog(listID);
 
-            consoleController.addItem(
-                listIndex,
-                undefined,
-                formObj.title,
-                formObj.desc,
-                formObj.dueDate,
-                formObj.isImportant,
-                formObj.isUrgent
-            );
-
-            formElmt.reset();
-            dialogElmt.close();
-
-            loadLists();
-            loadList(listIndex);
-        });
         dialogElmt.showModal();
     }
 
@@ -252,7 +229,7 @@ const loadController = (() => {
         }
     }
 
-    function generateDialog() {
+    function generateDialog(listID) {
         const dialogElmt = document.querySelector("dialog");
         dialogElmt.textContent = "";
 
@@ -269,17 +246,12 @@ const loadController = (() => {
         addText.textContent = "Add new todo item";
 
         const formElmt = generateFormController.formElmt;
+        formElmt.setAttribute("data-id", listID);
 
-        const submitBtn = document.createElement("button");
-        submitBtn.classList.toggle("submit");
-        // submitBtn.type = "submit";
-        // submitBtn.id = "submit";
-        submitBtn.textContent = "Submit";
 
         dialogElmt.appendChild(closeBtn);
         dialogElmt.appendChild(addText);
         dialogElmt.appendChild(formElmt);
-        dialogElmt.appendChild(submitBtn);
     }
 
     loadList(0);
