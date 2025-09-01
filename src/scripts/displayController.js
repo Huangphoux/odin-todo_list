@@ -20,6 +20,7 @@ const displayController = (() => {
 
     // addBtn
     document.querySelector(".list > button").addEventListener("click", () => {
+        loadController.generateDialog();
         dialog.showModal();
     });
 

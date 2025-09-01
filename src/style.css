@@ -409,7 +409,8 @@ input:invalid:required {
     background-image: linear-gradient(to right, pink, lightgreen);
 }
 
-input:valid {
+input:valid,
+textarea {
     border: 1px solid black;
 }
 
@@ -463,4 +464,6 @@ dialog p {
     width: 50%;
 
     grid-column: 1 / 3;
+
+    padding: 20px 50px;
 }

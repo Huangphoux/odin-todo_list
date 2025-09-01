@@ -1,4 +1,5 @@
 import { consoleController } from "./consoleController.js";
+import { generateDialog, generateDialogController } from "./generateDialog.js";
 
 const loadController = (() => {
     function askPermission() {
@@ -188,7 +189,7 @@ const loadController = (() => {
             dueDateDiv.textContent = `Due: ${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
 
             const checkBox = document.createElement("input");
-            checkBox.setAttribute("type", "checkbox");
+            checkBox.type = "checkbox";
             checkBox.addEventListener("change", () => {
                 toggleItemBtn(listName, itemLi);
             });
@@ -206,10 +207,35 @@ const loadController = (() => {
         }
     }
 
+    function generateDialog() {
+        const dialogElmt = document.querySelector("dialog");
+        dialogElmt.textContent = "";
+
+        const closeBtn = document.createElement("button");
+        closeBtn.classList.toggle("close");
+        closeBtn.formmethod = "dialog";
+        closeBtn.textContent = "X";
+
+        const addText = document.createElement("p");
+        addText.textContent = "Add new todo item";
+
+        const formElmt = generateDialogController.formElmt;
+
+        const submitBtn = document.createElement("button");
+        submitBtn.classList.toggle("submit");
+        submitBtn.type = "submit";
+        submitBtn.textContent = "Submit";
+
+        dialogElmt.appendChild(closeBtn);
+        dialogElmt.appendChild(addText);
+        dialogElmt.appendChild(formElmt);
+        dialogElmt.appendChild(submitBtn);
+    }
+
     loadList(0);
     loadLists();
 
-    return { loadLists, loadList };
+    return { loadLists, loadList, generateDialog };
 })();
 
 export { loadController };
