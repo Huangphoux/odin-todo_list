@@ -229,25 +229,35 @@ const loadController = (() => {
         }
     }
 
-    function generateDialog(listID) {
+    function closeFormBtn() {
         const dialogElmt = document.querySelector("dialog");
+        dialogElmt.close();
         dialogElmt.textContent = "";
+    }
 
+    function generateCloseFormBtn() {
         const closeBtn = document.createElement("button");
         closeBtn.classList.toggle("close");
         closeBtn.formmethod = "dialog";
         closeBtn.textContent = "X";
         closeBtn.addEventListener("click", () => {
-            const dialogElmt = document.querySelector("dialog");
-            dialogElmt.close();
+            closeFormBtn();
         });
+        
+        return closeBtn;
+    }
+
+    function generateDialog(listID, itemID) {
+        const dialogElmt = document.querySelector("dialog");
+        dialogElmt.textContent = "";
+
+        const closeBtn = generateCloseFormBtn();
 
         const addText = document.createElement("p");
         addText.textContent = "Add new todo item";
 
-        const formElmt = generateFormController.formElmt;
-        formElmt.setAttribute("data-id", listID);
-
+        const formElmt = generateFormController.getFormElement(listID, itemID);
+        formElmt.setAttribute("data-list-id", listID);
 
         dialogElmt.appendChild(closeBtn);
         dialogElmt.appendChild(addText);

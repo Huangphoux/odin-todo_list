@@ -97,6 +97,14 @@ const consoleController = (() => {
         return lists[listIndex].items[itemIndex].isDone;
     }
 
+    function getItem(listID, itemID) {
+        const listIndex = getListIndex(listID);
+        const itemIndex = getItemIndex(listID, itemID);
+
+        return lists[listIndex].items[itemIndex];
+        
+    }
+
     addList();
     addList("Homework");
     addList("Work");
@@ -122,6 +130,7 @@ const consoleController = (() => {
         countList,
         removeItem,
         toggleItem,
+        getItem,
     };
 })();
 

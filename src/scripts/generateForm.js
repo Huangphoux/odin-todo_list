@@ -2,9 +2,6 @@ import { consoleController } from "./consoleController.js";
 import { loadController } from "./loadFunc.js";
 
 const generateFormController = (() => {
-    const formElmt = document.createElement("form");
-    const dialogElmt = document.querySelector("dialog");
-
     function generateTitle(elmt) {
         const label = document.createElement("label");
         label.htmlFor = "title";
@@ -80,26 +77,23 @@ const generateFormController = (() => {
         elmt.appendChild(input);
     }
 
-    generateTitle(formElmt);
-    generateDesc(formElmt);
-    generateDueDate(formElmt);
-    generateIsImportant(formElmt);
-    generateIsUrgent(formElmt);
+    function generateSubmitBtn(elmt) {
+        const submitBtn = document.createElement("button");
+        submitBtn.classList.toggle("submit");
+        submitBtn.type = "submit";
+        submitBtn.id = "submit";
+        submitBtn.textContent = "Submit";
 
-    const submitBtn = document.createElement("button");
-    submitBtn.classList.toggle("submit");
-    submitBtn.type = "submit";
-    submitBtn.id = "submit";
-    submitBtn.textContent = "Submit";
+        elmt.appendChild(submitBtn);
+    }
 
-    formElmt.appendChild(submitBtn);
-
-    formElmt.addEventListener("submit", (event) => {
+    function submitForm(event, formElmt, dialogElmt) {
         event.preventDefault();
 
         let formObj = Object.fromEntries(new FormData(formElmt));
 
-        let listIndex = consoleController.getListIndex(formElmt.dataset.id);
+        const listID = formElmt.dataset.listId;
+        let listIndex = consoleController.getListIndex(listID);
 
         consoleController.addItem(
             listIndex,
@@ -112,12 +106,35 @@ const generateFormController = (() => {
         );
 
         dialogElmt.close();
+        formElmt.reset();
 
         loadController.loadLists();
         loadController.loadList(listIndex);
-    });
+    }
 
-    return { formElmt };
+    function getFormElement(listID, itemID) {
+        const formElmt = document.createElement("form");
+        const dialogElmt = document.querySelector("dialog");
+
+        const itemObj = consoleController.getItem(listID, itemID);
+        console.log(itemObj);
+
+        generateTitle(formElmt);
+        generateDesc(formElmt);
+        generateDueDate(formElmt);
+        generateIsImportant(formElmt);
+        generateIsUrgent(formElmt);
+        generateSubmitBtn(formElmt);
+
+        formElmt.addEventListener("submit", (event) => {
+            submitForm(event, formElmt, dialogElmt);
+            dialogElmt.textContent = "";
+        });
+
+        return formElmt;
+    }
+
+    return { getFormElement };
 })();
 
 export { generateFormController };
