@@ -128,7 +128,7 @@ const generateFormController = (() => {
         const listID = formElmt.dataset.listId;
         let listIndex = consoleController.getListIndex(listID);
 
-        const itemID = "";
+        let itemID = "";
         if (obj !== undefined) {
             itemID = obj.id;
         }
