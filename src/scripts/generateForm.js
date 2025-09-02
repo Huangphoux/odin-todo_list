@@ -2,7 +2,7 @@ import { consoleController } from "./consoleController.js";
 import { loadController } from "./loadFunc.js";
 
 const generateFormController = (() => {
-    function generateTitle(elmt) {
+    function generateTitle(elmt, obj) {
         const label = document.createElement("label");
         label.htmlFor = "title";
         label.textContent = "Item's title";
@@ -12,13 +12,17 @@ const generateFormController = (() => {
         input.type = "text";
         input.id = "title";
         input.required = true;
-        input.value = "Something idk";
+        input.value = "Untitled item";
+
+        if (obj !== undefined) {
+            input.value = obj.title;
+        }
 
         elmt.appendChild(label);
         elmt.appendChild(input);
     }
 
-    function generateDesc(elmt) {
+    function generateDesc(elmt, obj) {
         const label = document.createElement("label");
         label.htmlFor = "desc";
         label.textContent = "Desciption";
@@ -29,11 +33,27 @@ const generateFormController = (() => {
         input.rows = 4;
         input.cols = 50;
 
+        input.value = "You should elaborate on about this item here.";
+
+        if (obj !== undefined) {
+            input.value = obj.desc;
+        }
+
         elmt.appendChild(label);
         elmt.appendChild(input);
     }
 
-    function generateDueDate(elmt) {
+    function readableDueDate(date) {
+        let dateObj = date;
+
+        let day = ("0" + dateObj.getDate()).slice(-2);
+        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let year = dateObj.getFullYear();
+
+        return `${year}-${month}-${day}`;
+    }
+
+    function generateDueDate(elmt, obj) {
         const label = document.createElement("label");
         label.htmlFor = "dueDate";
         label.textContent = "Due date";
@@ -42,14 +62,19 @@ const generateFormController = (() => {
         input.name = "dueDate";
         input.type = "date";
         input.id = "dueDate";
-        input.value = "2025-12-25";
+        input.value = readableDueDate(new Date());
+        
         input.required = true;
+
+        if (obj !== undefined) {
+            input.value = obj.readableDueDate;
+        }
 
         elmt.appendChild(label);
         elmt.appendChild(input);
     }
 
-    function generateIsImportant(elmt) {
+    function generateIsImportant(elmt, obj) {
         const label = document.createElement("label");
         label.htmlFor = "isImportant";
         label.textContent = "Is this important ?";
@@ -59,11 +84,15 @@ const generateFormController = (() => {
         input.type = "checkBox";
         input.id = "isImportant";
 
+        if (obj !== undefined && obj.isImportant) {
+            input.checked = true;
+        }
+
         elmt.appendChild(label);
         elmt.appendChild(input);
     }
 
-    function generateIsUrgent(elmt) {
+    function generateIsUrgent(elmt, obj) {
         const label = document.createElement("label");
         label.htmlFor = "isImportant";
         label.textContent = "Is this urgent ?";
@@ -72,6 +101,10 @@ const generateFormController = (() => {
         input.name = "isUrgent";
         input.type = "checkBox";
         input.id = "isUrgent";
+
+        if (obj !== undefined && obj.isUrgent) {
+            input.checked = true;
+        }
 
         elmt.appendChild(label);
         elmt.appendChild(input);
@@ -87,7 +120,7 @@ const generateFormController = (() => {
         elmt.appendChild(submitBtn);
     }
 
-    function submitForm(event, formElmt, dialogElmt) {
+    function submitForm(event, formElmt, dialogElmt, obj) {
         event.preventDefault();
 
         let formObj = Object.fromEntries(new FormData(formElmt));
@@ -95,15 +128,12 @@ const generateFormController = (() => {
         const listID = formElmt.dataset.listId;
         let listIndex = consoleController.getListIndex(listID);
 
-        consoleController.addItem(
-            listIndex,
-            undefined,
-            formObj.title,
-            formObj.desc,
-            formObj.dueDate,
-            formObj.isImportant,
-            formObj.isUrgent
-        );
+        const itemID = "";
+        if (obj !== undefined) {
+            itemID = obj.id;
+        }
+
+        consoleController.addItem(listIndex, itemID, formObj.title, formObj.desc, formObj.dueDate, formObj.isImportant, formObj.isUrgent);
 
         dialogElmt.close();
         formElmt.reset();
@@ -117,17 +147,16 @@ const generateFormController = (() => {
         const dialogElmt = document.querySelector("dialog");
 
         const itemObj = consoleController.getItem(listID, itemID);
-        console.log(itemObj);
 
-        generateTitle(formElmt);
-        generateDesc(formElmt);
-        generateDueDate(formElmt);
-        generateIsImportant(formElmt);
-        generateIsUrgent(formElmt);
-        generateSubmitBtn(formElmt);
+        generateTitle(formElmt, itemObj);
+        generateDesc(formElmt, itemObj);
+        generateDueDate(formElmt, itemObj);
+        generateIsImportant(formElmt, itemObj);
+        generateIsUrgent(formElmt, itemObj);
+        generateSubmitBtn(formElmt, itemObj);
 
         formElmt.addEventListener("submit", (event) => {
-            submitForm(event, formElmt, dialogElmt);
+            submitForm(event, formElmt, dialogElmt, itemObj);
             dialogElmt.textContent = "";
         });
 

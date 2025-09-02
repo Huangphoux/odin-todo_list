@@ -48,7 +48,13 @@ class toDoItem {
     }
 
     get readableDueDate() {
-        return `${this.dueDate.getFullYear()}/${this.dueDate.getMonth() + 1}/${this.dueDate.getDate()}`;
+        let dateObj = this.dueDate;
+
+        let day = ("0" + dateObj.getDate()).slice(-2);; 
+        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let year = dateObj.getFullYear(); 
+
+        return `${year}-${month}-${day}`;
     }
 
     setEverything(title = "untitled", desc = "", dueDate = new Date(), isImportant = false, isUrgent = false) {
