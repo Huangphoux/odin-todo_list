@@ -117,7 +117,7 @@ const loadController = (() => {
             listsElmt.appendChild(listElmt);
         }
 
-        // consoleController.printLists();
+        consoleController.saveToDisk();
     }
 
     function deleteItemBtn(listElmt, itemElmt) {
@@ -156,22 +156,29 @@ const loadController = (() => {
         const list = document.querySelector(".list");
         list.textContent = "";
 
+        const listObj = consoleController.getLists()[index];
+        if (!listObj) {
+            return;
+        }
+
         const addBtn = document.createElement("button");
         addBtn.classList.toggle("add");
         addBtn.textContent = "Add new item";
         addBtn.addEventListener("click", () => {
             addItemBtn(listName.dataset.id);
         });
+        if (!listObj) {
+            addBtn.disabled = true;
+        }
         list.appendChild(addBtn);
 
         const listName = document.createElement("p");
-        const listObj = consoleController.getLists()[index];
+
         listName.textContent = listObj.name + "'s todo items";
         listName.setAttribute("data-id", listObj.id);
         list.appendChild(listName);
 
         let listItems = consoleController.getListItems(index);
-
         if (!listItems) {
             return;
         }
@@ -243,7 +250,7 @@ const loadController = (() => {
         closeBtn.addEventListener("click", () => {
             closeFormBtn();
         });
-        
+
         return closeBtn;
     }
 
