@@ -124,41 +124,41 @@ const consoleController = (() => {
         const listsJSON = localStorage.getItem("toDoList");
         const listsObj = JSON.parse(listsJSON);
 
-        const newLists = [];
-
         if (listsJSON === null || !listsObj.length) {
             localStorage.clear();
             addList();
+            // addList("Homework");
+            // addList("Work");
+
+            // addItem(0, undefined, "something", "no", "1905-09-28", true, true);
+            // addItem(1, undefined, "something different", "idk", "1984-06-28", false, true);
+            // addItem(1, undefined, "something different", "idk", "1984-06-28", true, false);
+            // addItem(2, undefined, "something different", "idk", "1984-06-28", false, false);
+            // addItem(2);
+            // addItem(2);
         } else {
+            const newLists = [];
+
             for (let list of listsObj) {
                 let newList = new toDoList(list.name);
+                newList.id = list.id;
 
                 for (let item of list.items) {
-                    // almost there, not preserve ID and isDone
-                    // newList.addItem(item.title, item.desc, item.dueDate, item.isImportant, item.isUrgent);
+                    let newItem = new toDoItem(item.title, item.desc, item.dueDate, item.isImportant, item.isUrgent);
+
+                    newItem.id = item.id;
+                    newItem.isDone = item.isDone;
+
+                    newList.items.push(newItem);
                 }
-
-                // Object.assign(newList, list);
-
-                // newLists.push(newList);
+                newLists.push(newList);
             }
 
-            // console.log(newLists);
-
-            // lists = newLists;
+            lists = newLists;
         }
     }
 
     loadFromDisk();
-    // addList("Homework");
-    // addList("Work");
-
-    // addItem(0, undefined, "something", "no", "1905-09-28", true, true);
-    // addItem(1, undefined, "something different", "idk", "1984-06-28", false, true);
-    // addItem(1, undefined, "something different", "idk", "1984-06-28", true, false);
-    // addItem(2, undefined, "something different", "idk", "1984-06-28", false, false);
-    // addItem(2);
-    // addItem(2);
 
     return {
         addList,
