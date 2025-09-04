@@ -271,8 +271,8 @@ const loadController = (() => {
         dialogElmt.appendChild(formElmt);
     }
 
-    loadList(0);
     loadLists();
+    loadList(0);
 
     return { loadLists, loadList, generateDialog };
 })();

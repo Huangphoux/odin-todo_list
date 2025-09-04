@@ -1,10 +1,9 @@
-import { toDoList } from "./class.js";
+import { toDoItem, toDoList } from "./class.js";
 
 const consoleController = (() => {
     let lists = [];
 
     function getLists() {
-
         return lists;
     }
 
@@ -105,11 +104,52 @@ const consoleController = (() => {
         return lists[listIndex].items[itemIndex];
     }
 
-    function saveToDisk() {}
+    function saveToDisk() {
+        const listsJSON = JSON.stringify(lists);
+        // console.log(listsJSON);
+        localStorage.setItem("toDoList", listsJSON);
+    }
 
-    function loadFromDisk() {}
+    function assignListFunc(list) {
+        let temp = new toDoList();
+        return Object.assign(temp, list);
+    }
 
-    addList();
+    function assignItemFunc(item) {
+        let temp = new toDoItem();
+        return Object.assign(temp, item);
+    }
+
+    function loadFromDisk() {
+        const listsJSON = localStorage.getItem("toDoList");
+        const listsObj = JSON.parse(listsJSON);
+
+        const newLists = [];
+
+        if (listsJSON === null || !listsObj.length) {
+            localStorage.clear();
+            addList();
+        } else {
+            for (let list of listsObj) {
+                let newList = new toDoList(list.name);
+
+                for (let item of list.items) {
+                    // almost there, not preserve ID and isDone
+                    // newList.addItem(item.title, item.desc, item.dueDate, item.isImportant, item.isUrgent);
+                }
+
+                // Object.assign(newList, list);
+
+                // newLists.push(newList);
+            }
+
+            // console.log(newLists);
+
+            // lists = newLists;
+        }
+    }
+
+    loadFromDisk();
     // addList("Homework");
     // addList("Work");
 
