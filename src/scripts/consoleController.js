@@ -106,18 +106,7 @@ const consoleController = (() => {
 
     function saveToDisk() {
         const listsJSON = JSON.stringify(lists);
-        // console.log(listsJSON);
         localStorage.setItem("toDoList", listsJSON);
-    }
-
-    function assignListFunc(list) {
-        let temp = new toDoList();
-        return Object.assign(temp, list);
-    }
-
-    function assignItemFunc(item) {
-        let temp = new toDoItem();
-        return Object.assign(temp, item);
     }
 
     function loadFromDisk() {
@@ -127,15 +116,6 @@ const consoleController = (() => {
         if (listsJSON === null || !listsObj.length) {
             localStorage.clear();
             addList();
-            // addList("Homework");
-            // addList("Work");
-
-            // addItem(0, undefined, "something", "no", "1905-09-28", true, true);
-            // addItem(1, undefined, "something different", "idk", "1984-06-28", false, true);
-            // addItem(1, undefined, "something different", "idk", "1984-06-28", true, false);
-            // addItem(2, undefined, "something different", "idk", "1984-06-28", false, false);
-            // addItem(2);
-            // addItem(2);
         } else {
             const newLists = [];
 
