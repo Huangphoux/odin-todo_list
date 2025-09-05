@@ -215,7 +215,9 @@ const loadController = (() => {
 
             const dueDateDiv = document.createElement("div");
             dueDateDiv.classList.toggle("dueDate");
-            dueDateDiv.textContent = `Due: ${item.dueDate.getDate()}/${item.dueDate.getMonth() + 1}/${item.dueDate.getFullYear()}`;
+            dueDateDiv.textContent = `Due: ${item.dueDate.getDate()}/${
+                item.dueDate.getMonth() + 1
+            }/${item.dueDate.getFullYear()}`;
 
             const checkBox = document.createElement("input");
             checkBox.type = "checkbox";
@@ -224,6 +226,12 @@ const loadController = (() => {
             });
             checkBox.id = "isDone";
             checkBox.checked = item.isDone;
+
+            
+            if (item.isDone) {
+                itemLi.classList.toggle("isDone");
+                expandBtn.disabled = true;
+            }
 
             itemLi.appendChild(expandBtn);
             itemLi.appendChild(deleteBtn);

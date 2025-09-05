@@ -1,5 +1,11 @@
 class toDoItem {
-    constructor(title = "untitled", desc = "", dueDate = new Date(), isImportant = false, isUrgent = false) {
+    constructor(
+        title = "untitled",
+        desc = "",
+        dueDate = new Date(),
+        isImportant = false,
+        isUrgent = false
+    ) {
         this.id = crypto.randomUUID();
 
         this.title = title;
@@ -50,14 +56,20 @@ class toDoItem {
     get readableDueDate() {
         let dateObj = this.dueDate;
 
-        let day = ("0" + dateObj.getDate()).slice(-2);; 
+        let day = ("0" + dateObj.getDate()).slice(-2);
         let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
-        let year = dateObj.getFullYear(); 
+        let year = dateObj.getFullYear();
 
         return `${year}-${month}-${day}`;
     }
 
-    setEverything(title = "untitled", desc = "", dueDate = new Date(), isImportant = false, isUrgent = false) {
+    setEverything(
+        title = "untitled",
+        desc = "",
+        dueDate = new Date(),
+        isImportant = false,
+        isUrgent = false
+    ) {
         this.title = title;
         this.desc = desc;
         this.dueDate = new Date(dueDate);
@@ -77,7 +89,9 @@ class toDoList {
     }
 
     addItem(title, desc, dueDate, isImportant, isUrgent) {
-        this.items.push(new toDoItem(title, desc, dueDate, isImportant, isUrgent));
+        this.items.push(
+            new toDoItem(title, desc, dueDate, isImportant, isUrgent)
+        );
     }
 
     deleteItem(index) {

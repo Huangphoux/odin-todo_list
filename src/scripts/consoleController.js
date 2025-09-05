@@ -17,11 +17,25 @@ const consoleController = (() => {
         // printLists();
     }
 
-    function addItem(index = 0, id = "", title, desc, dueDate, isImportant, isUrgent) {
+    function addItem(
+        index = 0,
+        id = "",
+        title,
+        desc,
+        dueDate,
+        isImportant,
+        isUrgent
+    ) {
         const itemIndex = getItemIndex(lists[index].id, id);
 
         if (itemIndex !== -1) {
-            lists[index].items[itemIndex].setEverything(title, desc, dueDate, isImportant, isUrgent);
+            lists[index].items[itemIndex].setEverything(
+                title,
+                desc,
+                dueDate,
+                isImportant,
+                isUrgent
+            );
         } else {
             lists[index].addItem(title, desc, dueDate, isImportant, isUrgent);
         }
@@ -124,7 +138,13 @@ const consoleController = (() => {
                 newList.id = list.id;
 
                 for (let item of list.items) {
-                    let newItem = new toDoItem(item.title, item.desc, item.dueDate, item.isImportant, item.isUrgent);
+                    let newItem = new toDoItem(
+                        item.title,
+                        item.desc,
+                        item.dueDate,
+                        item.isImportant,
+                        item.isUrgent
+                    );
 
                     newItem.id = item.id;
                     newItem.isDone = item.isDone;
@@ -134,7 +154,7 @@ const consoleController = (() => {
                 newLists.push(newList);
             }
 
-            lists = newLists;
+            lists = [...newLists];
         }
     }
 

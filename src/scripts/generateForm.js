@@ -63,7 +63,9 @@ const generateFormController = (() => {
         input.type = "date";
         input.id = "dueDate";
         input.value = readableDueDate(new Date());
-        
+
+        input.min = readableDueDate(new Date());
+
         input.required = true;
 
         if (obj !== undefined) {
@@ -133,7 +135,15 @@ const generateFormController = (() => {
             itemID = obj.id;
         }
 
-        consoleController.addItem(listIndex, itemID, formObj.title, formObj.desc, formObj.dueDate, formObj.isImportant, formObj.isUrgent);
+        consoleController.addItem(
+            listIndex,
+            itemID,
+            formObj.title,
+            formObj.desc,
+            formObj.dueDate,
+            formObj.isImportant,
+            formObj.isUrgent
+        );
 
         dialogElmt.close();
         formElmt.reset();
