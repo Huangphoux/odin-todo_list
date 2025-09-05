@@ -10,8 +10,9 @@
 }
 
 html {
-    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji";
+    font-family:
+        system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+        'Apple Color Emoji', 'Segoe UI Emoji';
 
     line-height: inherit;
 
@@ -42,8 +43,9 @@ code,
 kbd,
 samp,
 pre {
-    font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono",
-        Menlo, monospace;
+    font-family:
+        ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo,
+        monospace;
     /* 1 */
     font-size: 1em;
     /* 2 */
@@ -114,9 +116,9 @@ Correct the inability to style clickable types in iOS and Safari.
 */
 
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
     -webkit-appearance: button;
 }
 
@@ -150,7 +152,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 2. Correct the outline style in Safari.
 */
 
-[type="search"] {
+[type='search'] {
     -webkit-appearance: textfield;
     /* 1 */
     outline-offset: -2px;
@@ -206,8 +208,8 @@ h5 {
     font-weight: inherit;
 }
 
-ol[role="list"],
-ul[role="list"] {
+ol[role='list'],
+ul[role='list'] {
     list-style: none;
     padding-inline: 0;
 }
@@ -259,7 +261,7 @@ h6 {
 /* Start here !!!! */
 /*/*/
 
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
 
 body {
     display: grid;
@@ -459,6 +461,6 @@ dialog p {
     background-color: initial;
 }
 
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
     accent-color: light-dark(black, white);
 }

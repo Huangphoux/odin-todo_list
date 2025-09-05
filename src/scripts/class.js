@@ -1,10 +1,10 @@
 class toDoItem {
     constructor(
-        title = "untitled",
-        desc = "",
+        title = 'untitled',
+        desc = '',
         dueDate = new Date(),
         isImportant = false,
-        isUrgent = false
+        isUrgent = false,
     ) {
         this.id = crypto.randomUUID();
 
@@ -30,23 +30,23 @@ class toDoItem {
     }
 
     booleanToString(boolean) {
-        return boolean ? "" : "not ";
+        return boolean ? '' : 'not ';
     }
 
     get priority() {
         let temp = [];
 
         if (this.isUrgent) {
-            temp.push("urgent");
+            temp.push('urgent');
         }
         if (this.isImportant) {
-            temp.push("important");
+            temp.push('important');
         }
         if (!temp.length) {
-            temp.push("delete this!");
+            temp.push('delete this!');
         }
 
-        return temp.join(" ");
+        return temp.join(' ');
     }
 
     get info() {
@@ -56,19 +56,19 @@ class toDoItem {
     get readableDueDate() {
         let dateObj = this.dueDate;
 
-        let day = ("0" + dateObj.getDate()).slice(-2);
-        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let day = ('0' + dateObj.getDate()).slice(-2);
+        let month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
         let year = dateObj.getFullYear();
 
         return `${year}-${month}-${day}`;
     }
 
     setEverything(
-        title = "untitled",
-        desc = "",
+        title = 'untitled',
+        desc = '',
         dueDate = new Date(),
         isImportant = false,
-        isUrgent = false
+        isUrgent = false,
     ) {
         this.title = title;
         this.desc = desc;
@@ -82,7 +82,7 @@ class toDoItem {
 class toDoList {
     items = [];
 
-    constructor(name = "Untitled") {
+    constructor(name = 'Untitled') {
         this.id = crypto.randomUUID();
 
         this.name = name;
@@ -90,7 +90,7 @@ class toDoList {
 
     addItem(title, desc, dueDate, isImportant, isUrgent) {
         this.items.push(
-            new toDoItem(title, desc, dueDate, isImportant, isUrgent)
+            new toDoItem(title, desc, dueDate, isImportant, isUrgent),
         );
     }
 

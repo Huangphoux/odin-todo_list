@@ -1,18 +1,18 @@
-import { consoleController } from "./consoleController.js";
-import { loadController } from "./loadFunc.js";
+import { consoleController } from './consoleController.js';
+import { loadController } from './loadFunc.js';
 
 const generateFormController = (() => {
     function generateTitle(elmt, obj) {
-        const label = document.createElement("label");
-        label.htmlFor = "title";
+        const label = document.createElement('label');
+        label.htmlFor = 'title';
         label.textContent = "Item's title";
 
-        const input = document.createElement("input");
-        input.name = "title";
-        input.type = "text";
-        input.id = "title";
+        const input = document.createElement('input');
+        input.name = 'title';
+        input.type = 'text';
+        input.id = 'title';
         input.required = true;
-        input.value = "Untitled item";
+        input.value = 'Untitled item';
 
         if (obj !== undefined) {
             input.value = obj.title;
@@ -23,17 +23,17 @@ const generateFormController = (() => {
     }
 
     function generateDesc(elmt, obj) {
-        const label = document.createElement("label");
-        label.htmlFor = "desc";
-        label.textContent = "Desciption";
+        const label = document.createElement('label');
+        label.htmlFor = 'desc';
+        label.textContent = 'Desciption';
 
-        const input = document.createElement("textarea");
-        input.name = "desc";
-        input.id = "desc";
+        const input = document.createElement('textarea');
+        input.name = 'desc';
+        input.id = 'desc';
         input.rows = 4;
         input.cols = 50;
 
-        input.value = "You should elaborate on about this item here.";
+        input.value = 'You should elaborate on about this item here.';
 
         if (obj !== undefined) {
             input.value = obj.desc;
@@ -46,22 +46,22 @@ const generateFormController = (() => {
     function readableDueDate(date) {
         let dateObj = date;
 
-        let day = ("0" + dateObj.getDate()).slice(-2);
-        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let day = ('0' + dateObj.getDate()).slice(-2);
+        let month = ('0' + (dateObj.getMonth() + 1)).slice(-2);
         let year = dateObj.getFullYear();
 
         return `${year}-${month}-${day}`;
     }
 
     function generateDueDate(elmt, obj) {
-        const label = document.createElement("label");
-        label.htmlFor = "dueDate";
-        label.textContent = "Due date";
+        const label = document.createElement('label');
+        label.htmlFor = 'dueDate';
+        label.textContent = 'Due date';
 
-        const input = document.createElement("input");
-        input.name = "dueDate";
-        input.type = "date";
-        input.id = "dueDate";
+        const input = document.createElement('input');
+        input.name = 'dueDate';
+        input.type = 'date';
+        input.id = 'dueDate';
         input.value = readableDueDate(new Date());
 
         input.min = readableDueDate(new Date());
@@ -77,14 +77,14 @@ const generateFormController = (() => {
     }
 
     function generateIsImportant(elmt, obj) {
-        const label = document.createElement("label");
-        label.htmlFor = "isImportant";
-        label.textContent = "Is this important ?";
+        const label = document.createElement('label');
+        label.htmlFor = 'isImportant';
+        label.textContent = 'Is this important ?';
 
-        const input = document.createElement("input");
-        input.name = "isImportant";
-        input.type = "checkBox";
-        input.id = "isImportant";
+        const input = document.createElement('input');
+        input.name = 'isImportant';
+        input.type = 'checkBox';
+        input.id = 'isImportant';
 
         if (obj !== undefined && obj.isImportant) {
             input.checked = true;
@@ -95,14 +95,14 @@ const generateFormController = (() => {
     }
 
     function generateIsUrgent(elmt, obj) {
-        const label = document.createElement("label");
-        label.htmlFor = "isImportant";
-        label.textContent = "Is this urgent ?";
+        const label = document.createElement('label');
+        label.htmlFor = 'isImportant';
+        label.textContent = 'Is this urgent ?';
 
-        const input = document.createElement("input");
-        input.name = "isUrgent";
-        input.type = "checkBox";
-        input.id = "isUrgent";
+        const input = document.createElement('input');
+        input.name = 'isUrgent';
+        input.type = 'checkBox';
+        input.id = 'isUrgent';
 
         if (obj !== undefined && obj.isUrgent) {
             input.checked = true;
@@ -113,11 +113,11 @@ const generateFormController = (() => {
     }
 
     function generateSubmitBtn(elmt) {
-        const submitBtn = document.createElement("button");
-        submitBtn.classList.toggle("submit");
-        submitBtn.type = "submit";
-        submitBtn.id = "submit";
-        submitBtn.textContent = "Submit";
+        const submitBtn = document.createElement('button');
+        submitBtn.classList.toggle('submit');
+        submitBtn.type = 'submit';
+        submitBtn.id = 'submit';
+        submitBtn.textContent = 'Submit';
 
         elmt.appendChild(submitBtn);
     }
@@ -130,7 +130,7 @@ const generateFormController = (() => {
         const listID = formElmt.dataset.listId;
         let listIndex = consoleController.getListIndex(listID);
 
-        let itemID = "";
+        let itemID = '';
         if (obj !== undefined) {
             itemID = obj.id;
         }
@@ -142,7 +142,7 @@ const generateFormController = (() => {
             formObj.desc,
             formObj.dueDate,
             formObj.isImportant,
-            formObj.isUrgent
+            formObj.isUrgent,
         );
 
         dialogElmt.close();
@@ -153,8 +153,8 @@ const generateFormController = (() => {
     }
 
     function getFormElement(listID, itemID) {
-        const formElmt = document.createElement("form");
-        const dialogElmt = document.querySelector("dialog");
+        const formElmt = document.createElement('form');
+        const dialogElmt = document.querySelector('dialog');
 
         const itemObj = consoleController.getItem(listID, itemID);
 
@@ -165,9 +165,9 @@ const generateFormController = (() => {
         generateIsUrgent(formElmt, itemObj);
         generateSubmitBtn(formElmt, itemObj);
 
-        formElmt.addEventListener("submit", (event) => {
+        formElmt.addEventListener('submit', (event) => {
             submitForm(event, formElmt, dialogElmt, itemObj);
-            dialogElmt.textContent = "";
+            dialogElmt.textContent = '';
         });
 
         return formElmt;

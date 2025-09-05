@@ -8,4 +8,4 @@ You can check the requirements for this project [here](https://www.theodinprojec
 
 ## Name's origin
 
-Sorry, no BUNNY name this time. 
+Sorry, no BUNNY name this time.

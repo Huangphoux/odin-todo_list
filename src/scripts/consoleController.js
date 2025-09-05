@@ -1,4 +1,4 @@
-import { toDoItem, toDoList } from "./class.js";
+import { toDoItem, toDoList } from './class.js';
 
 const consoleController = (() => {
     let lists = [];
@@ -11,7 +11,7 @@ const consoleController = (() => {
         return lists.length;
     }
 
-    function addList(name = "Untitled") {
+    function addList(name = 'Untitled') {
         lists.push(new toDoList(fixBlankName(name)));
         // console.log(`Add new todo list named "${name}"`);
         // printLists();
@@ -19,12 +19,12 @@ const consoleController = (() => {
 
     function addItem(
         index = 0,
-        id = "",
+        id = '',
         title,
         desc,
         dueDate,
         isImportant,
-        isUrgent
+        isUrgent,
     ) {
         const itemIndex = getItemIndex(lists[index].id, id);
 
@@ -34,7 +34,7 @@ const consoleController = (() => {
                 desc,
                 dueDate,
                 isImportant,
-                isUrgent
+                isUrgent,
             );
         } else {
             lists[index].addItem(title, desc, dueDate, isImportant, isUrgent);
@@ -79,7 +79,7 @@ const consoleController = (() => {
 
     function fixBlankName(name) {
         if (!name) {
-            return "Unnamed";
+            return 'Unnamed';
         }
 
         return name;
@@ -120,11 +120,11 @@ const consoleController = (() => {
 
     function saveToDisk() {
         const listsJSON = JSON.stringify(lists);
-        localStorage.setItem("toDoList", listsJSON);
+        localStorage.setItem('toDoList', listsJSON);
     }
 
     function loadFromDisk() {
-        const listsJSON = localStorage.getItem("toDoList");
+        const listsJSON = localStorage.getItem('toDoList');
         const listsObj = JSON.parse(listsJSON);
 
         if (listsJSON === null || !listsObj.length) {
@@ -143,7 +143,7 @@ const consoleController = (() => {
                         item.desc,
                         item.dueDate,
                         item.isImportant,
-                        item.isUrgent
+                        item.isUrgent,
                     );
 
                     newItem.id = item.id;
