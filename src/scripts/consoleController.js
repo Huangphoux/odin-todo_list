@@ -158,8 +158,6 @@ const consoleController = (() => {
         }
     }
 
-    loadFromDisk();
-
     return {
         addList,
         addItem,
